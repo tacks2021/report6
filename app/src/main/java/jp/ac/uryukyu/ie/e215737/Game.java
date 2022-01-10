@@ -9,6 +9,7 @@ package jp.ac.uryukyu.ie.e215737;
  */
 
 public class Game {
+    
     Window window;
     Button button;
 
@@ -18,7 +19,7 @@ public class Game {
 
     public Game() {
 
-        initGW();
+        initWindow();
         initButton();
 
     }
@@ -27,12 +28,11 @@ public class Game {
      * windowにパネルを追加、ここでさまざまな画面の指示を行う。
      */
 
-    public void initGW() {
+    public void initWindow() {
 
         window = new Window();
         window.setLayout(null);
         
-
     }
 
     /**
@@ -42,6 +42,6 @@ public class Game {
     public void initButton() {
         
         button = new Button();
-        button.setLayout(null);
+
     }
 }
