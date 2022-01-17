@@ -31,7 +31,10 @@ public class Game {
     public void initWindow() {
 
         window = new Window();
-        window.setLayout(null);
+        window.PreparePanels(); //ペインに貼るパネルのみを生成
+        window.prepareComponents(); //その他のコンポーネントを生成
+        //起動後最初に表示すべき画面を手前に持ってきてそれに注目させる
+        window.setVisible(true); //最後にウインドウを可視化
         
     }
 
