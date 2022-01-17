@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,7 +13,7 @@ import javax.swing.JPanel;
  * パネルとパネルに必要なボタンに関する設定を行う。
  */
 
-public class Panel extends JPanel implements ActionListener {
+public class Panel extends JPanel {
 
     /**
      * ボタンパネル。
@@ -28,6 +27,32 @@ public class Panel extends JPanel implements ActionListener {
      * ウインドウクラスから来ている。
      */
     Window window;
+
+    /**
+     * 神経衰弱の詳細。
+     * メモリーゲームクラスから来ている。
+     */
+    MemoryGame memoryGame;
+
+    /**
+     * ボタンリスナー
+     * ボタンを押した際に指示を出す。
+     */
+    ButtonListener buttonListener;
+
+    /**
+     * カードメソッド。
+     * カードの状態を示すためのもの。
+     */
+    public enum Card {
+        TURN_OVER,
+        FLIP,
+    }
+
+    /**
+     * カードの初期状態。
+     */
+    Card Cardcheck = Card.FLIP;
 
     //行数、列数
     /**
@@ -54,6 +79,8 @@ public class Panel extends JPanel implements ActionListener {
      */
     JButton[][] buttons;
 
+    int i = 0;
+
     /**
      * カードを扱うメソッド。
      * カードに関する設定を行う。
@@ -63,18 +90,19 @@ public class Panel extends JPanel implements ActionListener {
         buttonPanel = new JPanel(new GridLayout(HEIGHT, WIDTH));
         //カードを表示するためにボタンの配列を使用する
         buttons = new JButton[HEIGHT][WIDTH];
-       
-        
+        memoryGame = new MemoryGame();
+        memoryGame.RandomCards();
         for (int i = 0; i < HEIGHT * WIDTH; i++ ) {
             //ボタンを追加
+            if (i % 4 == 0)
             buttons[i / 4] = new JButton[4];
             buttons[i / 4][i % 4] = new JButton("-Card-" + (i + 1)); //カードを裏向きにする
-            buttons[i / 4][i % 4].addActionListener(this);
             buttonPanel.add(buttons[i / 4][i % 4]);
-        
+            
         }
-
         
+         //ボタンサイズを調整（何故か1, 1でウインドウにピッタリサイズのボタンが作れました）
+        setLayout(new GridLayout(1, 1));
     }
 
     /**
@@ -86,19 +114,34 @@ public class Panel extends JPanel implements ActionListener {
         this.add(buttonPanel, BorderLayout.CENTER);
         Window window = new Window();
         window.pack();
+        //ボタンにリスナーをつける
+        buttonListener = new ButtonListener();
+        buttons[i / 4][i % 4].addActionListener(buttonListener);
         
     }
 
     /**
-     * アクションパフォームメソッド。
+     * コンストラクタ。
      * ボタンを押した際に出てくる文字を設定。
      */
 
-    public void actionPerformed(ActionEvent e) {
+    private class ButtonListener implements ActionListener {
         
-        System.out.println("pushed button");
-        JOptionPane.showMessageDialog(null, "カードが開かれました");
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if((event.getSource() == buttons[i / 4][i % 4])) {
+            if(Cardcheck == Card.FLIP) {
+                Cardcheck = Card.TURN_OVER;
+                buttons[i / 4][i % 4].setText("CardList");
+            } else {
+                Cardcheck = Card.FLIP;
+                buttons[i / 4][i % 4].setText("Card");
+                }
+            }
         
+        } 
+
     }
 
 }

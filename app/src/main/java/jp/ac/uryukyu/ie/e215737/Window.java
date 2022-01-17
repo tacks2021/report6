@@ -16,12 +16,12 @@ public class Window extends JFrame {
      * ウインドウの幅。
      * 変えてはいけないためfinal変数で数を固定。
      */
-    private final int WIDTH = 600;
+    private final int WIDTH = 400;
     /**
      * ウインドウの高さ。
      * 変えてはいけないためfinal変数で数を固定。
      */
-    private final int HEIGHT = 400;
+    private final int HEIGHT = 600;
 
     /**
      * レイアウト。
