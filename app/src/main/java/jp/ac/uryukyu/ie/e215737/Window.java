@@ -10,19 +10,35 @@ import javax.swing.JFrame;
 
 public class Window extends JFrame {
 
-    /**
-     * コンストラクタ。ウィンドウのサイズや画面の色といった設定を行う。
-     */
-
     private static final long serialVersionUID = 1L;
     //ウィンドウのサイズ(固定)
-    final int WIDTH = 600;
-    final int HEIGHT = 400;
+    /**
+     * ウインドウの幅。
+     * 変えてはいけないためfinal変数で数を固定。
+     */
+    private final int WIDTH = 600;
+    /**
+     * ウインドウの高さ。
+     * 変えてはいけないためfinal変数で数を固定。
+     */
+    private final int HEIGHT = 400;
 
+    /**
+     * レイアウト。
+     * ここではサイズの設定をするために使用。
+     */
     CardLayout layout = new CardLayout();
+    
+    /**
+     * パネル。
+     * パネルクラスから来ている。
+     */
+    Panel panel;
 
-    Button button;
-
+    /**
+     * コンストラクタ。
+     * ウインドウの設定を行う。
+     */
     public Window() {
 
          //ウィンドウのタイトル
@@ -33,27 +49,33 @@ public class Window extends JFrame {
         this.setResizable(false);
          //画面背景の色の処理
         this.getContentPane().setBackground(Color.ORANGE);
-        this.setLayout(layout); //サイズ設定
-        //ウィンドウのサイズ
+         //サイズ設定
+        this.setLayout(layout);
+         //ウィンドウのサイズ
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.pack(); //自動サイズ調整
-        this.setLocationRelativeTo(null); //起動後のスクリーンの位置を中央にもってくる
+         //自動でサイズを調整する
+        this.pack();
+         //起動後ウインドウの位置を中央にする
+        this.setLocationRelativeTo(null);
         
     }
 
+    /**
+     * パネルを準備するメソッド。
+     */
     public void PreparePanels() {
-        //パネルの準備
-        button = new Button();
-        this.add(button, "タイトル画面");
-        
+         //パネルを生成
+        panel = new Panel();
+        this.add(panel, "タイトル画面");
         this.pack();
     }
-
-    //preparePanels()が呼ばれた後メインメソッドからさらに手動で呼び出す
+    /**
+     * プリペアコンポーネントメソッド。
+     * preparePanels()が呼ばれた後にメインメソッドからさらに手動で呼び出す。
+     */
     public void prepareComponents(){
-        button.DealCards();
+        panel.DealCards();
+        panel.AddPanel();
     }
 
-    public void Button() {
-    }
 }
