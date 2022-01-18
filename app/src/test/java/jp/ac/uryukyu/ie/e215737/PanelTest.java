@@ -18,6 +18,7 @@ public class PanelTest {
     private final int WIDTH = 3;
 
     @Test
+    
     public void test() {
         List<Integer> list = new ArrayList<Integer>();
             for(int i = 0 ; i < HEIGHT * WIDTH ; i++){
